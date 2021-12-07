@@ -3,11 +3,16 @@ using System;
 public class SubscriptionProperty<T> : ISubscriptionProperty<T>
 {
     private Action<T> _onValueChange;
+    private T _value;
 
-    public T Value { get; set; }
-
-    public SubscriptionProperty()
+    public T Value
     {
+        get => _value;
+        set
+        {
+            _value = value;
+            _onValueChange?.Invoke(_value);
+        }
     }
 
     public SubscriptionProperty(T value)

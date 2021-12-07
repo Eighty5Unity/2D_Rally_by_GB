@@ -2,7 +2,7 @@ using System;
 
 public interface ISubscriptionProperty<T>
 {
-    T Value { get; set; }
+    T Value { get; }
 
     void SubscribeOnChange(Action<T> action);
 

@@ -13,20 +13,22 @@ public class MainController : BaseController
         _model = model;
         _uiRoot = uiRoot;
 
+    
         _model.GameState.SubscribeOnChange(GameStateChange);
         _model.GameState.Value = GameStateEnum.Start;
+       
     }
 
     private void GameStateChange(GameStateEnum state)
     {
-        _current.Dispose();
-
+        _current?.Dispose();
         switch (state)
         {
             case GameStateEnum.None:
                 break;
             case GameStateEnum.Start:
                 _current = new MenuController(_model, _uiRoot);
+                
                 break;
             case GameStateEnum.Game:
                 _current = new GameController();
