@@ -19,7 +19,7 @@ public class TapeBackgroundView : MonoBehaviour
         _diff?.SubscribeOnChange(Move);
     }
 
-    private void Move(float value)
+    public void Move(float value)
     {
         foreach(var background in _backgrounds)
         {

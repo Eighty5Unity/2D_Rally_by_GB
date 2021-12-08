@@ -1,9 +1,9 @@
 public class Car
 {
-    private float _speed;
+    public float Speed { get; }
 
     public Car(float speed)
     {
-        _speed = speed;
+        Speed = speed;
     }
 }

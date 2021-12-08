@@ -20,6 +20,11 @@ public class SubscriptionProperty<T> : ISubscriptionProperty<T>
         Value = value;
     }
 
+    public SubscriptionProperty()
+    {
+
+    }
+
     public void SubscribeOnChange(Action<T> action)
     {
         _onValueChange += action;
