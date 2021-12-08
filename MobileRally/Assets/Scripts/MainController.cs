@@ -31,7 +31,7 @@ public class MainController : BaseController
                 
                 break;
             case GameStateEnum.Game:
-                _current = new GameController();
+                _current = new GameController(_model, _uiRoot);
                 break;
             default:
                 break;
