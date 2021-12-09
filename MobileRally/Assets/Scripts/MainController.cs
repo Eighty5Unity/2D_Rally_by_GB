@@ -28,7 +28,9 @@ public class MainController : BaseController
                 break;
             case GameStateEnum.Start:
                 _current = new MenuController(_model, _uiRoot);
-                
+                break;
+            case GameStateEnum.ChooseInputController:
+                _current = new ChooseInputController(_model, _uiRoot);
                 break;
             case GameStateEnum.Game:
                 _current = new GameController(_model, _uiRoot);

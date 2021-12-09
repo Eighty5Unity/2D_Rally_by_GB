@@ -7,6 +7,6 @@ public class PlayerData
     public PlayerData()
     {
         Car = new Car(5f);
-        GameState = new SubscriptionProperty<GameStateEnum>(GameStateEnum.None);
+        GameState = new SubscriptionProperty<GameStateEnum>();
     }
 }

@@ -18,7 +18,7 @@ public class MenuController : BaseController
 
     private void StartGame()
     {
-        _playerData.GameState.Value = GameStateEnum.Game;
+        _playerData.GameState.Value = GameStateEnum.ChooseInputController;
     }
 
     protected override void OnDispose()
