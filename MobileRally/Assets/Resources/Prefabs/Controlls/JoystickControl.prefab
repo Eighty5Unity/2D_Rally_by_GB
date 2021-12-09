@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 11400012}
   - component: {fileID: 4127242972946631280}
   m_Layer: 5
-  m_Name: SingleStickControl
+  m_Name: JoystickControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
