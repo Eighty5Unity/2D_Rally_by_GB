@@ -6,12 +6,15 @@ public class MainController : BaseController
 {
     private readonly PlayerData _model;
     private readonly Transform _uiRoot;
+    private readonly IAdsShower _adsShower;
     private BaseController _current; //текущий контроллер
 
-    public MainController(PlayerData model, Transform uiRoot)
+
+    public MainController(PlayerData model, Transform uiRoot, IAdsShower adsShower)
     {
         _model = model;
         _uiRoot = uiRoot;
+        _adsShower = adsShower;
 
     
         _model.GameState.SubscribeOnChange(GameStateChange);
@@ -27,7 +30,7 @@ public class MainController : BaseController
             case GameStateEnum.None:
                 break;
             case GameStateEnum.Start:
-                _current = new MenuController(_model, _uiRoot);
+                _current = new MenuController(_model, _uiRoot, _adsShower);
                 break;
             case GameStateEnum.ChooseInputController:
                 _current = new ChooseInputController(_model, _uiRoot);
