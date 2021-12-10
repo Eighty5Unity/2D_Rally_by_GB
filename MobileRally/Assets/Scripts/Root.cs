@@ -11,8 +11,9 @@ public class Root : MonoBehaviour
     private void Start()
     {
         PlayerData playerData = new PlayerData();
+        var analytics = new UnityAnalyticsHandler();
         playerData.GameState.Value = GameStateEnum.Start;
-        _mainController = new MainController(playerData, _uiRoot, _ads);
+        _mainController = new MainController(playerData, _uiRoot, _ads, analytics);
     }
 
     private void OnDestroy()
