@@ -8,16 +8,31 @@ public class MainController : BaseController
     private readonly Transform _uiRoot;
     private readonly IAdsShower _adsShower;
     private readonly IAnalytics _analytics;
+    private readonly List<ItemConfig> _itemsConfig;
+    private readonly List<AbilityConfig> _abilitiesConfig;
+    private readonly List<UpgardeItemConfig> _upgradeItemsConfig;
+
+    private InvertoryModel _inventoryModel;
+    private InvertoryController _invertoryController;
+    private ItemsRepository _itemsRepository;
     private BaseController _current; //текущий контроллер
 
 
-    public MainController(PlayerData model, Transform uiRoot, IAdsShower adsShower, IAnalytics analytics)
+    public MainController(PlayerData model, Transform uiRoot, IAdsShower adsShower, IAnalytics analytics,
+        List<ItemConfig> itemsConfig, List<AbilityConfig> abilitiesConfig, List<UpgardeItemConfig> upgradeItemsConfig)
     {
         _model = model;
         _uiRoot = uiRoot;
         _adsShower = adsShower;
         _analytics = analytics;
+        _itemsConfig = itemsConfig;
+        _abilitiesConfig = abilitiesConfig;
+        _upgradeItemsConfig = upgradeItemsConfig;
 
+        _inventoryModel = new InvertoryModel();
+        _itemsRepository = new ItemsRepository(itemsConfig);
+        _invertoryController = new InvertoryController(_inventoryModel, _itemsRepository);
+        AddController(_invertoryController);
     
         _model.GameState.SubscribeOnChange(GameStateChange);
         _model.GameState.Value = GameStateEnum.Start;
@@ -33,7 +48,8 @@ public class MainController : BaseController
                 break;
             case GameStateEnum.Start:
                 _analytics.TrackEvent("game_load", null);
-                _current = new MenuController(_model, _uiRoot, _adsShower);
+                _invertoryController.ShowInventory();
+                _current = new MenuController(_model, _uiRoot, _adsShower, _upgradeItemsConfig, _inventoryModel);
                 break;
             case GameStateEnum.ChooseInputController:
                 _adsShower.ShowRewarded(() => Debug.Log("Show Rewarded"));
@@ -41,7 +57,8 @@ public class MainController : BaseController
                 break;
             case GameStateEnum.Game:
                 _analytics.TrackEvent("game_start", null);
-                _current = new GameController(_model, _uiRoot);
+                _invertoryController.ShowInventory();
+                _current = new GameController(_model, _uiRoot, _inventoryModel);
                 break;
             default:
                 break;

@@ -403,6 +403,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiRoot: {fileID: 880422500}
   _ads: {fileID: 1077603457}
+  _itemsConfig: []
+  _abilitiesConfig: []
+  _upgradeItemsConfig:
+  - {fileID: 11400000, guid: 4556e7df84c354f038d087129f9b436c, type: 2}
 --- !u!4 &1077603456
 Transform:
   m_ObjectHideFlags: 0
