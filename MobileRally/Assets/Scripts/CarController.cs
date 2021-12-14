@@ -2,12 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarController
+public class CarController : BaseController, IAbilityActivator
 {
-    private readonly PlayerData _model;
+    private readonly ResourcePath _viewPath = new ResourcePath() { PathResource = "Prefabs/Car" };
+    private readonly CarView _carView;
+    
 
-    public CarController(PlayerData model)
+    public CarController()
         {
-            _model = model;
+            _carView = LoadView();
         }
+
+    private CarView LoadView()
+    {
+        var objView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath));
+        AddGameObject(objView);
+
+        return objView.GetComponent<CarView>();
+    }
+
+    public GameObject GetViewObject()
+    {
+        return _carView.gameObject;
+    }
 }

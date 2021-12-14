@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AbilityType 
+public interface IAbility 
 {
-    None,
-    Gun
+    void Apply(IAbilityActivator activator);
 }

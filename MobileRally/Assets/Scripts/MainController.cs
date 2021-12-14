@@ -14,6 +14,7 @@ public class MainController : BaseController
 
     private InvertoryModel _inventoryModel;
     private InvertoryController _invertoryController;
+    private AbilitiesRepository _abilitiesRepository;
     private ItemsRepository _itemsRepository;
     private BaseController _current; //текущий контроллер
 
@@ -32,6 +33,7 @@ public class MainController : BaseController
         _inventoryModel = new InvertoryModel();
         _itemsRepository = new ItemsRepository(itemsConfig);
         _invertoryController = new InvertoryController(_inventoryModel, _itemsRepository);
+        _abilitiesRepository = new AbilitiesRepository(_abilitiesConfig);
         AddController(_invertoryController);
     
         _model.GameState.SubscribeOnChange(GameStateChange);
@@ -58,7 +60,7 @@ public class MainController : BaseController
             case GameStateEnum.Game:
                 _analytics.TrackEvent("game_start", null);
                 _invertoryController.ShowInventory();
-                _current = new GameController(_model, _uiRoot, _inventoryModel);
+                _current = new GameController(_model, _uiRoot, _inventoryModel, _abilitiesRepository);
                 break;
             default:
                 break;

@@ -10,7 +10,7 @@ public class GameController : BaseController
     private SubscriptionProperty<float> _leftMove;
     private SubscriptionProperty<float> _rightMove;
 
-    public GameController(PlayerData model, Transform uiRoot, InvertoryModel inventoryModel)
+    public GameController(PlayerData model, Transform uiRoot, InvertoryModel inventoryModel, IAbilityRepository abilitiesRepository)
     {
         _model = model;
         _inventoryModel = inventoryModel;
@@ -18,7 +18,8 @@ public class GameController : BaseController
         _rightMove = new SubscriptionProperty<float>();
 
         var bg = new BackgroundController(_model, _leftMove, _rightMove);
-        var car = new CarController(_model);
+        var car = new CarController();
         var input = new InputController(_model, _leftMove, _rightMove, uiRoot);
+        var abilitiesController = new AbilitiesController(inventoryModel, abilitiesRepository, new AbilityCollectionViewStub(), car);
     }
 }

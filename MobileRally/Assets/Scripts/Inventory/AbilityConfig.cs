@@ -15,4 +15,6 @@ public class AbilityConfig : ScriptableObject
     public float Power => _power;
 
     public AbilityType Type => _type;
+
+    public ResourcePath View => _view;
 }
