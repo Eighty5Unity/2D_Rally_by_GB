@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundController 
+public class BackgroundController : BaseController
 {
     private ResourcePath _backgroundResourse = new ResourcePath() { PathResource = "Prefabs/background" };
 

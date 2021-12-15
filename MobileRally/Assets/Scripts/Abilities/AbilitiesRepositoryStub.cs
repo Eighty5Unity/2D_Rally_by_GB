@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class AbilitiesRepositoryStub : IAbilityRepository
 {
-    public IReadOnlyDictionary<int, IAbility> AbilityMapById { get; } = new Dictionary<int, IAbility>();
+    public IReadOnlyDictionary<int, IAbility> Items { get; } = new Dictionary<int, IAbility>();
 }

@@ -8,11 +8,11 @@ public class InvertoryController : BaseController, IInvertoryController
     private readonly IInventoryModel _inventoryModel;
     private readonly IInventoryView _inventoryWindowView;
 
-    public InvertoryController(IInventoryModel inventoryModel, IItemRepository itemsRepository)
+    public InvertoryController(IInventoryModel inventoryModel, IItemRepository itemsRepository, InventoryView inventoryView)
     {
         _inventoryModel = inventoryModel;
         _itemsRepository = itemsRepository;
-        _inventoryWindowView = new InventoryView();
+        _inventoryWindowView = inventoryView;
     }
 
     public void ShowInventory()
@@ -24,5 +24,10 @@ public class InvertoryController : BaseController, IInvertoryController
 
         var equippedItems = _inventoryModel.GetEquippedItems();
         _inventoryWindowView.Display(equippedItems);
+    }
+
+    public void HideInventory()
+    {
+        _inventoryWindowView.Hide();
     }
 }

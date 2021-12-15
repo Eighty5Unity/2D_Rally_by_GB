@@ -5,4 +5,6 @@ using UnityEngine;
 public interface IInvertoryController 
 {
     void ShowInventory();
+
+    void HideInventory();
 }

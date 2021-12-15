@@ -7,8 +7,10 @@ public class Root : MonoBehaviour
 {
     [SerializeField] private Transform _uiRoot;
     [SerializeField] private UnityAdsTools _ads;
-    [SerializeField] private ItemConfig[] _itemsConfig;
-    [SerializeField] private AbilityConfig[] _abilitiesConfig;
+    
+    private ResourcePath _itemsPath = new ResourcePath() { PathResource = "Configs/ItemsConfigContainer" };
+    private ResourcePath _abilitiesPath = new ResourcePath() { PathResource = "Configs/AbilitiesConfigContainer" };
+
     [SerializeField] private UpgardeItemConfig[] _upgradeItemsConfig;
     private MainController _mainController;
 
@@ -16,9 +18,11 @@ public class Root : MonoBehaviour
     {
         PlayerData playerData = new PlayerData();
         var analytics = new UnityAnalyticsHandler();
+        var itemsConfig = ResourceLoader.LoadConfigContainer<ItemConfig>(_itemsPath);
+        var abilitiesConfig = ResourceLoader.LoadConfigContainer<AbilityConfig>(_abilitiesPath);
         playerData.GameState.Value = GameStateEnum.Start;
-        _mainController = new MainController(playerData, _uiRoot, _ads, analytics, _itemsConfig.ToList(),
-            _abilitiesConfig.ToList(), _upgradeItemsConfig.ToList());
+        _mainController = new MainController(playerData, _uiRoot, _ads, analytics, itemsConfig,
+            abilitiesConfig, _upgradeItemsConfig.ToList());
     }
 
     private void OnDestroy()

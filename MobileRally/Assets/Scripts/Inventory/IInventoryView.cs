@@ -5,4 +5,6 @@ using UnityEngine;
 public interface IInventoryView 
 {
     void Display(IReadOnlyList<IItem> items);
+
+    void Hide();
 }

@@ -19,14 +19,14 @@ public class AbilitiesController : BaseController
         _activator = activator;
 
         var equiped = inventory.GetEquippedItems();
-        var equipedAbilities = equiped.Where(i => _abilityRepository.AbilityMapById.ContainsKey(i.Id));
+        var equipedAbilities = equiped.Where(i => _abilityRepository.Items.ContainsKey(i.Id));
         view.Display(equipedAbilities.ToList());
         view.UseRequested += OnAbilityRequested;
     }
 
     private void OnAbilityRequested(object sender, IItem e)
     {
-        var ability = _abilityRepository.AbilityMapById[e.Id];
+        var ability = _abilityRepository.Items[e.Id];
         ability.Apply(_activator);
     }
 }

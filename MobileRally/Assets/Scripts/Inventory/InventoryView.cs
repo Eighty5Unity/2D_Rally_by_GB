@@ -11,4 +11,9 @@ public class InventoryView : IInventoryView
             Debug.Log($"{item.Id}, {item.Info.Title}");
         }
     }
+
+    public void Hide()
+    {
+        throw new System.NotImplementedException();
+    }
 }

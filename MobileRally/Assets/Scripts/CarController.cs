@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class CarController : BaseController, IAbilityActivator
 {
-    private readonly ResourcePath _viewPath = new ResourcePath() { PathResource = "Prefabs/Car" };
-    private readonly CarView _carView;
-    
+    private readonly ICarView _carView;
 
-    public CarController()
-        {
-            _carView = LoadView();
-        }
 
-    private CarView LoadView()
+    public CarController(ICarView carView)
     {
-        var objView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath));
-        AddGameObject(objView);
-
-        return objView.GetComponent<CarView>();
+        _carView = carView;
     }
 
     public GameObject GetViewObject()
     {
-        return _carView.gameObject;
+        return _carView.GameObject;
     }
 }

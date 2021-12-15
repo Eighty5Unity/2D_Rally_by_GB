@@ -8,8 +8,8 @@ public class MainController : BaseController
     private readonly Transform _uiRoot;
     private readonly IAdsShower _adsShower;
     private readonly IAnalytics _analytics;
-    private readonly List<ItemConfig> _itemsConfig;
-    private readonly List<AbilityConfig> _abilitiesConfig;
+    private readonly IConfigContainer<ItemConfig> _itemsConfig;
+    private readonly IConfigContainer<AbilityConfig> _abilitiesConfig;
     private readonly List<UpgardeItemConfig> _upgradeItemsConfig;
 
     private InvertoryModel _inventoryModel;
@@ -20,7 +20,7 @@ public class MainController : BaseController
 
 
     public MainController(PlayerData model, Transform uiRoot, IAdsShower adsShower, IAnalytics analytics,
-        List<ItemConfig> itemsConfig, List<AbilityConfig> abilitiesConfig, List<UpgardeItemConfig> upgradeItemsConfig)
+        IConfigContainer<ItemConfig> itemsConfig, IConfigContainer<AbilityConfig> abilitiesConfig, List<UpgardeItemConfig> upgradeItemsConfig)
     {
         _model = model;
         _uiRoot = uiRoot;
@@ -31,9 +31,9 @@ public class MainController : BaseController
         _upgradeItemsConfig = upgradeItemsConfig;
 
         _inventoryModel = new InvertoryModel();
-        _itemsRepository = new ItemsRepository(itemsConfig);
-        _invertoryController = new InvertoryController(_inventoryModel, _itemsRepository);
-        _abilitiesRepository = new AbilitiesRepository(_abilitiesConfig);
+        _itemsRepository = new ItemsRepository(_itemsConfig.Configs);
+        _invertoryController = new InvertoryController(_inventoryModel, _itemsRepository, new InventoryView());
+        _abilitiesRepository = new AbilitiesRepository(_abilitiesConfig.Configs);
         AddController(_invertoryController);
     
         _model.GameState.SubscribeOnChange(GameStateChange);
