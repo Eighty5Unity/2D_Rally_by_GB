@@ -9,6 +9,8 @@ public class MenuController : BaseController
     private readonly GarageController _garageController;
     private readonly InvertoryModel _inventoryModel;
     private ResourcePath _menuViewResource = new ResourcePath() { PathResource = "Prefabs/mainMenu" };
+    private ResourcePath _touchViewPath = new ResourcePath() { PathResource = "Prefabs/TrailRenderer" };
+    private readonly TrailsTouchView _trailsView;
 
     public MenuController(PlayerData playerData, Transform uiRoot, IAdsShower ads, List<UpgardeItemConfig> upgradeItems, InvertoryModel invertoryModel)
     {
@@ -25,6 +27,8 @@ public class MenuController : BaseController
         _garageController = new GarageController(upgradeItems, _playerData.Car, _inventoryModel);
         _garageController.Enter();
         _garageController.Exit();
+        _trailsView = CreateTrailsView(uiRoot);
+        _trailsView.Init();
     }
 
     private void StartGame()
@@ -42,5 +46,12 @@ public class MenuController : BaseController
     private void ShowRewarded()
     {
         _ads.ShowRewarded(() => Debug.Log("Show Rewarded"));
+    }
+
+    private TrailsTouchView CreateTrailsView(Transform uiRoot)
+    {
+        var trailView = Object.Instantiate(ResourceLoader.LoadPrefab(_touchViewPath), uiRoot, false).GetComponent<TrailsTouchView>();
+        AddGameObject(trailView.gameObject);
+        return trailView;
     }
 }
